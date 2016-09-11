@@ -1,5 +1,5 @@
 language: scala,
 jdk: openjdk6
-script: sbt scripted
+script: sh build.sh
 os: linux
 sudo: required

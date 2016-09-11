@@ -20,6 +20,8 @@ function processor(input, output) {
 
     var spawnSync = require("child_process").spawnSync;
     var ret = spawnSync("elm-make", args=syncArgs);
+    if (ret.error)
+      throw spawnError(input, ret.error);
     var out = ret.stdout.toString();
 
     if (out.startsWith('[{')) {
@@ -49,8 +51,8 @@ jst.process({processor: processor, inExt: ".elm", outExt: (args.options.compress
 /**
  * Utility to take an elm error object and coerce it into a Problem object.
  */
-function parseError(input, contents, err) {
-  var errors = JSON.parse(err);
+function parseError(input, contents, jsonStr) {
+  var errors = JSON.parse(jsonStr);
   var computedErrors = [];
   for (i = 0; i < errors.length; i++) {
     var error = errors[i];
@@ -70,4 +72,19 @@ function parseError(input, contents, err) {
   }
   // Jstranspiler does not support returning more than one error
   return computedErrors[0];
+}
+
+/**
+ * Throws the error that spawn throws
+ */
+function spawnError(input, err) {
+  return {
+    message: "Error running the compiler! Are you sure you have elm-make installed? Run: npm install -g elm." +
+      "\n" + err,
+    severity: "error",
+    lineNumber: 1,
+    characterOffset: 1,
+    lineContent: "",
+    source: input
+  };
 }
