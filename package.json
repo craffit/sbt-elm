@@ -1,0 +1,32 @@
+{
+  "name": "sbt-elm",
+  "version": "0.1.0",
+  "description": "Elm integration in sbt",
+  "preferGlobal": true,
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Alexandru Sutii",
+    "email": "sutii.alex@gmail.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "install": "node install.js"
+  },
+  "files": [
+  ],
+  "keywords": [
+    "sbt",
+    "sbt-elm",
+    "elm",
+    "platform"
+  ],
+  "bin": {
+  },
+  "dependencies": {
+    "elm": "0.17.1"
+  },
+  "_id": "sbt-elm@0.1.0",
+  "readme": "ERROR: No README data found!"
+}
