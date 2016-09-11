@@ -2,3 +2,4 @@ language: scala,
 jdk: openjdk6
 script: sbt scripted
 os: linux
+sudo: required
