@@ -1,0 +1,13 @@
+# Compile a less file
+
+> set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+> assets
+$ exists target/web/public/main/js/main.js
+
+# Compile with compression
+
+> set ElmKeys.compress in Assets := true
+> assets
+-$ exists target/web/public/main/js/main.js
+$ exists target/web/public/main/js/main.min.js
