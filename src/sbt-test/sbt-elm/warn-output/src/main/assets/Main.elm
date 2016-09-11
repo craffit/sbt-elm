@@ -2,7 +2,6 @@ import Html exposing (Html, button, div, text)
 import Html.App as App
 import Html.Events exposing (onClick)
 
-main : Program Never
 main =
   App.beginnerProgram { model = model, view = view, update = update }
 

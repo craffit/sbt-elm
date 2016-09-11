@@ -13,7 +13,7 @@ model : Model
 model = 0
 
 -- Update
-type Msg = Increment | Decrement | Reset
+type Msg = Increment | Decrement | Rese
 
 update : Msg -> Model -> Model
 update msg model =

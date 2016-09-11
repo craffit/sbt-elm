@@ -16,10 +16,9 @@ object TestBuild extends Build {
 
     def log(level: Level.Value, message: => String): Unit = {
       if (level == Level.Error) {
-        // TODO
-        if (message.contains("""ParseError: expected "indent", got "=="""")) {
+        if (message.contains("""Cannot find pattern `Reset`""")) {
           if (unrecognisedInputCount.addAndGet(1) == 1) {
-            IO.touch(target / "unrecognised-input-error")
+            IO.touch(target / "cannot-find-reset")
           }
         }
       }
