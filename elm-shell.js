@@ -16,13 +16,15 @@ function processor(input, output) {
   return promised.readFile(input, "utf8").then(function(contents) {
     return promised.mkdirp(path.dirname(output)).yield(contents);
   }).then(function(contents) {
-    var syncArgs = [input, "--output=".concat(output)];
+    var syncArgs = [input, "--output=".concat(output), "--yes", "--warn", "--report=json"];
 
     var spawnSync = require("child_process").spawnSync;
-    var ret = spawnSync("elm-make", args=syncArgs, options={stdio: 'inherit'});
+    var ret = spawnSync("elm-make", args=syncArgs);
+    var out = ret.stdout.toString();
 
-    if (ret.error) {
-      throw parseError(input, contents, ret.error);
+    if (out.startsWith('[{')) {
+      var jsonStr = out.match(/(.*)/m);
+      throw parseError(input, contents, jsonStr[1]);
     } else {
       return output;
     }
@@ -48,17 +50,24 @@ jst.process({processor: processor, inExt: ".elm", outExt: (args.options.compress
  * Utility to take an elm error object and coerce it into a Problem object.
  */
 function parseError(input, contents, err) {
-  var errLines = err.message.split("\n");
-  var lineNumber = (errLines.length > 0? errLines[0].substring(errLines[0].indexOf(":") + 1) : 0);
-  var lines = contents.split("\n", lineNumber);
-  return {
-    message: err.name + ": " + (errLines.length > 2? errLines[errLines.length - 2] : err.message),
-    severity: "error",
-    lineNumber: lineNumber,
-    characterOffset: 0,
-    lineContent: (lineNumber > 0 && lines.length >= lineNumber? lines[lineNumber - 1] : "Unknown line"),
-    source: input
-  };
+  var errors = JSON.parse(err);
+  var computedErrors = [];
+  for (i = 0; i < errors.length; i++) {
+    var error = errors[i];
+    var lineNumber = error.region.start.line;
+    var lines = contents.split("\n", lineNumber);
+    var lineContent = lines[lineNumber - 1];
+    for (i = error.region.start.line + 1; i <= error.region.end.line; i++)
+      lineContent = lineContent.concat("\n" + lines[i - 1]);
+    computedErrors = computedErrors.concat({
+      message: error.tag + ": " + error.overview + "\n" + error.details,
+      severity: error.type,
+      lineNumber: lineNumber,
+      characterOffset: error.region.start.column,
+      lineContent: lineContent,
+      source: error.file
+    });
+  }
+  // Jstranspiler does not support returning more than one error
+  return computedErrors[0];
 }
-
-
