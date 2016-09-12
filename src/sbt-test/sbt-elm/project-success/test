@@ -1,0 +1,7 @@
+# Compile Main.elm when it is in a project in the 'src' subdirectory.
+# elm-packages.json specifies that properly.
+
+> set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+> assets
+$ exists target/web/public/main/elm/src/Main.js

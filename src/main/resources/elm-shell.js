@@ -19,14 +19,24 @@ function processor(input, output) {
     var syncArgs = [input, "--output=".concat(output), "--yes", "--warn", "--report=json"];
 
     var spawnSync = require("child_process").spawnSync;
-    var ret = spawnSync("elm-make", args=syncArgs);
+    // Dirty hack. This should go in SbtElm.scala, but I haven't found how
+    var packageLocation = "assets/elm";
+    var cwd = require("path").resolve("./");
+    var idxPackLoc = input.indexOf(packageLocation);
+    if (idxPackLoc !== -1)
+      cwd = input.substring(0, idxPackLoc + packageLocation.length);
+
+    var ret = spawnSync("elm-make", args=syncArgs, options={cwd: cwd});
     if (ret.error)
       throw spawnError(input, ret.error);
     var out = ret.stdout.toString();
+    var err = ret.stderr.toString();
 
     if (out.indexOf('[{"tag"') !== -1) {
       var jsonStr = out.match(/\[{.*}\]/m)[0];
       throw parseError(input, contents, jsonStr);
+    } else if (ret.status !== 0) {
+        throw compileError(input, err + "\n" + out);
     } else {
       return output;
     }
@@ -74,17 +84,29 @@ function parseError(input, contents, jsonStr) {
   return computedErrors[0];
 }
 
-/**
- * Throws the error that spawn throws
- */
-function spawnError(input, err) {
+function customError(input, message) {
   return {
-    message: "Error running the compiler! Are you sure you have elm-make installed? Run: npm install -g elm." +
-      "\n" + err,
+    message: message,
     severity: "error",
     lineNumber: 1,
     characterOffset: 1,
     lineContent: "",
     source: input
   };
+}
+
+/**
+ * Throws the error that spawn throws
+ */
+function spawnError(input, err) {
+  return customError(input, "Error running the compiler! Are you sure you have" +
+      " elm-make installed? Run: npm install -g elm." +
+      "\n" + err);
+}
+
+/**
+ * Throws the error that the compiler throws when it has not generated a json
+ */
+function compileError(input, err) {
+  return customError(input, "Error: \n" + err);
 }

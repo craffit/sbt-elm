@@ -28,7 +28,9 @@ object SbtElm extends AutoPlugin {
   import autoImport.ElmKeys._
 
   val elmUnscopedSettings = Seq(
-    includeFilter := GlobFilter("Main.elm")
+    includeFilter :=
+      new SimpleFileFilter(file => file.getParent contains "assets/elm")
+      && GlobFilter("Main.elm")
   )
 
   override def projectSettings = inTask(elm)(

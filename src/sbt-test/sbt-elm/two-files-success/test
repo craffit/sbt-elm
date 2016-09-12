@@ -1,0 +1,7 @@
+# Compile an Elm file
+
+> set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+> assets
+$ exists target/web/public/main/elm/Main.js
+-$ exists target/web/public/main/elm/B.js

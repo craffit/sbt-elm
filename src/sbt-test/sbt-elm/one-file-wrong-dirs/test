@@ -1,0 +1,9 @@
+# Only Main.elm gets compiled in subdirectories of assets/elm. Not in others.
+
+> set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+> assets
+-$ exists target/web/public/main/Main.js
+-$ exists target/web/public/main/js/Main.js
+-$ exists target/web/public/main/css/Main.js
+-$ exists target/web/public/main/elm/Uncompiled.js

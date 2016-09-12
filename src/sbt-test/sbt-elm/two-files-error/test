@@ -1,0 +1,10 @@
+# Compile two Elm files and expect an error
+
+> set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+-> assets
+
+-$ exists target/web/public/main/elm/Main.js
+-$ exists target/web/public/main/elm/B.js
+
+$ exists target/cannot-find-decrement
