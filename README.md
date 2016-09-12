@@ -45,7 +45,7 @@ Limitations
 ===========
 This plugin is presently only working with an engineType set to Node e.g.:
 
-    `set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node`
+    set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
 Building and Running Tests
 ==========================
