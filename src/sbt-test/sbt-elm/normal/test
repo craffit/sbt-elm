@@ -4,10 +4,3 @@
 
 > assets
 $ exists target/web/public/main/js/Main.js
-
-# Compile with compression
-
-> set ElmKeys.compress in Assets := true
-> assets
-$ exists target/web/public/main/js/Main.min.js
--$ exists target/web/public/main/js/Main.js

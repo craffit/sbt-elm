@@ -10,8 +10,6 @@ object Import {
 
   object ElmKeys {
     val elm = TaskKey[Seq[File]]("elm", "Invoke the elm compiler.")
-
-    val compress = SettingKey[Boolean]("elm-compress", "Compress output by removing some whitespaces.")
   }
 
 }
@@ -30,18 +28,10 @@ object SbtElm extends AutoPlugin {
   import autoImport.ElmKeys._
 
   val elmUnscopedSettings = Seq(
-
-    includeFilter := GlobFilter("Main.elm"),
-
-    jsOptions := JsObject(
-      "compress" -> JsBoolean(compress.value)
-    ).toString()
+    includeFilter := GlobFilter("Main.elm")
   )
 
-  override def projectSettings = Seq(
-    compress := false
-
-  ) ++ inTask(elm)(
+  override def projectSettings = inTask(elm)(
     SbtJsTask.jsTaskSpecificUnscopedSettings ++
       inConfig(Assets)(elmUnscopedSettings) ++
       inConfig(TestAssets)(elmUnscopedSettings) ++

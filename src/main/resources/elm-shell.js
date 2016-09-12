@@ -45,7 +45,7 @@ function processor(input, output) {
 }
 
 
-jst.process({processor: processor, inExt: ".elm", outExt: (args.options.compress? ".min.js" : ".js")}, args);
+jst.process({processor: processor, inExt: ".elm", outExt: ".js"}, args);
 
 
 /**
