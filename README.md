@@ -17,14 +17,14 @@ For this plugin to work you need to have the elm compiler installed:
 
 Usage in Play/Sbt
 =================
-To use the plugin in Play, add this line to your project's plugins.sbt:
+To use the plugin in Play, add this line to your project's `plugins.sbt`:
 
 ```scala
 lazy val root = project.in(file(".")).dependsOn(sbtElm)
 lazy val sbtElm = uri("https://github.com/sutiialex/sbt-elm.git")
 ```
 
-Your build.sbt should also enable sbt-web plugins, i.e., it should contain the
+Your `build.sbt` should also enable sbt-web plugins, i.e., it should contain the
 following line:
 
     lazy val root = (project in file(".")).enablePlugins(SbtWeb)
