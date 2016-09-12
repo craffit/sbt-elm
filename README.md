@@ -4,14 +4,16 @@ sbt-elm
 [![Build Status](https://api.travis-ci.org/sutiialex/sbt-elm.png?branch=master)](https://travis-ci.org/sutiialex/sbt-elm)
 
 A plugin for integrating the elm compiler with Scala Build Tool and Play
-Framework. It is based on sbt-web and com.typesafe.sbt:js-engine.
+Framework. It is based on `sbt-web` and `com.typesafe.sbt:js-engine`.
 
-Inspired from `sbt-stylus` [https://github.com/huntc/sbt-stylus], following this video:
-[https://www.youtube.com/watch?v=lIznJSBW-GU].
+Inspired from [sbt-stylus](https://github.com/huntc/sbt-stylus), following this
+[video](https://www.youtube.com/watch?v=lIznJSBW-GU).
 
 Requirements
 ============
-For this plugin to work you need to have the elm compiler installed: `npm install -g elm`.
+For this plugin to work you need to have the elm compiler installed:
+
+    npm install -g elm
 
 Usage in Play/Sbt
 =================
@@ -24,6 +26,7 @@ lazy val sbtElm = uri("https://github.com/sutiialex/sbt-elm.git")
 
 Your build.sbt should also enable sbt-web plugins, i.e., it should contain the
 following line:
+
     lazy val root = (project in file(".")).enablePlugins(SbtWeb)
 
 You have to place your `.elm` files in `src/main/assets/js`. By default, the
@@ -40,15 +43,18 @@ includeFilter in (Assets, ElmKeys.elm) := "foo.elm" | "bar.elm"
 
 Limitations
 ===========
-> Note that this plugin is presently only working with an engineType set to Node e.g.:
-> `set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node`
+This plugin is presently only working with an engineType set to Node e.g.:
+
+    `set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node`
 
 Building and Running Tests
 ==========================
-> This step is not needed unless you want to tweak with the plugin.
+> Note that this step is not needed unless you want to tweak with the plugin.
 
 If you have elm installed, simply run:
+
     sbt scripted
 
 If you want to also install elm compiler, run in the root of the repository:
+
     sh build.sh
