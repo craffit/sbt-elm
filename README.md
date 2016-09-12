@@ -31,7 +31,7 @@ following line:
 
 You have to place your `.elm` files in `src/main/assets/elm` or in any of its
 subdirectories. If you have an elm project (as described by
-[elm-make](https://github.com/elm-lang/elm-make) with an `elm-package.json`,
+[elm-make](https://github.com/elm-lang/elm-make)) with an `elm-package.json`,
 place it in `src/main/assets/elm`. The Elm compiler will run in that directory
 and will take that into consideration. The plugin will look for `Main.elm` in
 `src/main/assets/elm` or `src/main/assets/elm/<path_to_subdir>` and compile it.
@@ -41,7 +41,7 @@ builds all the modules imported by `Main.elm`.
 
 Limitations
 ===========
-This plugin is presently only working with an engineType set to Node e.g.:
+This plugin is presently only working with an engineType set to Node, e.g.:
 
     set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
@@ -53,6 +53,6 @@ If you have Elm installed, simply run:
 
     sbt scripted
 
-If you want to also install Elm compiler, run in the root of the repository:
+If you want to also install the Elm compiler, run in the root of the repository:
 
     sh build.sh
