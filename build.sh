@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# Used for travis. It basically builds the plugin and installs npm and elm.
+
 set -e
 
 if [ -z "$(which elm-make)" ]

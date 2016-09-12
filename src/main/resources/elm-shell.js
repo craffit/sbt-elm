@@ -24,9 +24,9 @@ function processor(input, output) {
       throw spawnError(input, ret.error);
     var out = ret.stdout.toString();
 
-    if (out.startsWith('[{')) {
-      var jsonStr = out.match(/(.*)/m);
-      throw parseError(input, contents, jsonStr[1]);
+    if (out.indexOf('[{"tag"') !== -1) {
+      var jsonStr = out.match(/\[{.*}\]/m)[0];
+      throw parseError(input, contents, jsonStr);
     } else {
       return output;
     }
