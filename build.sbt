@@ -4,7 +4,7 @@ organization := "pro.realview.sbt"
 
 name := "sbt-elm"
 
-version := "1.0.0-SNAPSHOT"
+version := "1.0.1-SNAPSHOT"
 
 scalaVersion := "2.10.4"
 
