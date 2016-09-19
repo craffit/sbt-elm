@@ -29,7 +29,9 @@ object SbtElm extends AutoPlugin {
 
   val elmUnscopedSettings = Seq(
     includeFilter :=
-      new SimpleFileFilter(file => file.getParent contains "assets/elm")
+      new SimpleFileFilter(file =>
+          ((file.getParent contains "/assets/elm") &&
+          !(file.getParent contains "/elm-stuff")))
       && GlobFilter("Main.elm")
   )
 

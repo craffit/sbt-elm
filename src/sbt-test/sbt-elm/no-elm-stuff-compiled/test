@@ -1,0 +1,9 @@
+# Make sure that no Main.elm from elm-stuff gets compiled. Sometimes there are
+# modules there that have a Main.elm that does not compile if built from this
+# directory.  I checked in elm-stuff deliberatly with a faulty Main.elm.
+
+> set JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+
+> assets
+$ exists target/web/public/main/elm/src/Main.js
+-$ exists target/web/public/main/elm/elm-stuff/Main.js
