@@ -4,9 +4,9 @@ organization := "pro.realview.sbt"
 
 name := "sbt-elm"
 
-version := "1.0.2-SNAPSHOT"
+version := "1.0.2"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.10.6"
 
 libraryDependencies ++= Seq(
   "com.typesafe" % "jstranspiler" % "1.0.0",
@@ -24,12 +24,7 @@ resolvers ++= Seq(
 
 addSbtPlugin("com.typesafe.sbt" %% "sbt-js-engine" % "1.0.0")
 
-publishMavenStyle := false
-
-publishTo := {
-  if (isSnapshot.value) Some(Classpaths.sbtPluginSnapshots)
-  else Some(Classpaths.sbtPluginReleases)
-}
+publishMavenStyle := true
 
 scriptedSettings
 
